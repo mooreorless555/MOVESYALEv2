@@ -5,7 +5,7 @@
       <ion-icon class="largetext" name="add"></ion-icon>
     </button>
   </ion-buttons>
-    <ion-title item-center>Map 
+    <ion-title item-center>Hub 
       <ion-icon name="contact" (click)="goToProfile()"></ion-icon>
       <ion-icon name="globe" (click)="goToMap()"></ion-icon>
     </ion-title>
@@ -26,6 +26,10 @@
   <h4>on</h4>
   <h4>{{ this.system.currentdate }}</h4>
   </div>
+  <button (click)='start()'>Start Tracking</button>
+  <button (click)='stop()'>Stop Tracking</button>
+  <p>Location: {{locationTracker.lat}}, {{locationTracker.lng}}</p>
+  <p>Updated {{ locationTracker.status }} times.</p>
   <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
    viewBox="0 0 568.5 73.5" enable-background="new 0 0 568.5 73.5" xml:space="preserve">
 <line class="path" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" x1="0" y1="36.2" x2="598.5" y2="36.2"/>

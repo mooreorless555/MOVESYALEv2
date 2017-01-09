@@ -8,6 +8,12 @@
  * Copyright (c) 2016 Daniel Eden
  */
 
+ .chat-item.ng-enter {
+  font-size:3rem;
+    -webkit-animation: fadeInLeft 1s;
+    animation: fadeInLeft 1s;
+}
+
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;

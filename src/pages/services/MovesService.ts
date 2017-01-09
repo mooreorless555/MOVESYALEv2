@@ -90,4 +90,27 @@ export class MovesService {
 
     });
   }
+
+  // updateMove(move) {
+    
+  //   console.log('Updating move');
+  //   console.log(move);
+  //   let urlUpdate = url + 'moves/' + move._id;
+
+  //   return new Promise((resolve, reject) => {
+
+  //     this.http.put(urlUpdate)
+  //     .subscribe(res => {
+
+  //       let data = res.json();
+  //       resolve(data);
+
+  //     }, (err) => {
+
+  //       reject(err);
+
+  //     });
+
+  //   });
+  // }
 }

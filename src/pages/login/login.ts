@@ -27,6 +27,7 @@ export class LoginPage {
   FB_APP_ID: number = 1726230761032513;
 
   public info = "By Yalies. For Yalies.";
+  public user = "nullman";
 
   public firsttime = {
     email: "",
@@ -68,6 +69,7 @@ var me = this;
         //alert(results[0]);
         //alert("Results: " + results[1] + " name: " + results[1].name);
         //alert(results[1].name);
+        // this.user = results[1];
 
         return Promise.all([results, me.loginProvider.doApiLogin(results)])
 
@@ -78,7 +80,7 @@ var me = this;
           social_token: results[0][0],
           token: results[1]
         })
-
+        // this.presentWelcome();
         me.navCtrl.setRoot(HomePage);
       })
       .catch(function(error) {
@@ -90,7 +92,7 @@ var me = this;
 
 presentWelcome() {
     let welcome = this.toastCtrl.create({
-      message: "Hey Chris!",
+      message: "Hey " + this.user + "!",
       duration: 1000
     });
     welcome.present();
@@ -159,7 +161,6 @@ presentConfirmCode() {
         text: 'Confirm',
         handler: data => {
           if (1) {
-            this.presentWelcome();
             this.navCtrl.push(TabsPage);
           } else {
             return false;
