@@ -6,6 +6,7 @@ import { NativeStorage } from 'ionic-native';
 import { MakePage } from '../make/make';
 import { StatsPage } from '../stats/stats';
 import { ProfilePage } from '../profile/profile';
+import { MapPage } from '../map/map';
 
 import { MovesService } from '../services/MovesService';
 import { StatsProvider } from '../../providers/stats-provider';
@@ -77,6 +78,12 @@ export class HomePage {
   goToMake() {
     console.log('Make!');
     this.navCtrl.push(MakePage);
+  }
+
+  goToMap() {
+    this.navCtrl.push(MapPage, {
+      moves: this.moves
+    });
   }
 
 
