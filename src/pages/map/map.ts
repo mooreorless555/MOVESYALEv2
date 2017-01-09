@@ -3,7 +3,7 @@ import { NavController, Platform, NavParams } from 'ionic-angular';
 import { NativeStorage } from 'ionic-native';
 import { MovesService } from '../services/MovesService';
 import { LocationTracker } from '../../providers/location-tracker';
-import {Observable} from 'rxjs/Observable';
+// import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 declare var google;
