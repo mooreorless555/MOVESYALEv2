@@ -2,6 +2,9 @@ import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { NavController, Platform, NavParams } from 'ionic-angular';
 import { NativeStorage } from 'ionic-native';
 import { MovesService } from '../services/MovesService';
+
+import { StatsPage } from '../stats/stats'
+
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -22,10 +25,10 @@ export class MapPage {
   moves: Array<any>;
  
 
-  constructor(public platform: Platform, public params: NavParams, public movesService: MovesService) {
+  constructor(public platform: Platform, public params: NavParams, public navCtrl: NavController, public movesService: MovesService) {
         this.platform = platform;
         this.moves = params.get("moves");
-        alert(this.moves);
+        //alert(this.moves);
 
         //this.listMoves();
         this.initializeMap();
@@ -88,32 +91,257 @@ export class MapPage {
         this.map = new google.maps.Map(document.getElementById('map'), {
             zoom: minZoomLevel,
             center: new google.maps.LatLng(41.3083, -72.9279),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            styles: [
+  {
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#ebe3cd"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#523735"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#f5f1e6"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#c9b2a6"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#dcd2be"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#ae9e90"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.natural",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#93817c"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#a5b076"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#447530"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#f5f1e6"
+      }
+    ]
+  },
+  {
+    "featureType": "road.arterial",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#fdfcf8"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#f8c967"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#e9bc62"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway.controlled_access",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#e98d58"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway.controlled_access",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#db8555"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#806b63"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#8f7d77"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#ebe3cd"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.station",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#b9d3c2"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#92998d"
+      }
+    ]
+  }
+]
         });
     })
     .then(() => {
         for (let i=0; i < this.moves.length; i++) {
 
-          this.addMarker(this.moves[i].location.lat, this.moves[i].location.long);
+        	this.addMarker(this.moves[i]);
+          //this.addMarker(this.moves[i].location.lat, this.moves[i].location.long);
         }
     })
   } 
 
-  addMarker(lat, lng){
+  addMarker(move){
  
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: new google.maps.LatLng(lat, lng)
+      position: new google.maps.LatLng(move.location.lat, move.location.long)
     });
 
+    //alert("move: " + move);
+
     marker.addListener('click', function() {
-      this.map.setCenter(marker.getPosition());
+      //this.map.setCenter(marker.getPosition());
+      //this.checkStats(move);
+      let lmove = move;
+
+      alert("In listener, move: " + move.info.name);
+      this.navCtrl.push(StatsPage, {
+      	firstPassed: move
+      });
     });
  
-    let content = "<p>Information!</p>";          
+    //let content = "<p>Information!</p>";          
  
-    this.addInfoWindow(marker, content);
+    //this.addInfoWindow(marker, content);
  
   }
 
@@ -122,10 +350,18 @@ export class MapPage {
     let infoWindow = new google.maps.InfoWindow({
       content: content
     });
- 
+ 	
+
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
     });
  
   }
+
+  checkStats(move) {
+  	alert("In check stats, move: " + move);
+    this.navCtrl.push(StatsPage, { 
+      firstPassed: move}
+      );
+  } 
 }

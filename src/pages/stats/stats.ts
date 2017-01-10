@@ -43,7 +43,7 @@ export class StatsPage {
 
   constructor(public navCtrl: NavController, public params: NavParams, public system: System, public stat: StatsProvider, public zone: NgZone) {
      this.move = params.get("firstPassed");
-     console.log('Passed in', this.move);
+     alert('Passed in: ' + this.move);
 
     /* Perform statistical analysis. */
      if (this.move.info.hasAlcohol) {

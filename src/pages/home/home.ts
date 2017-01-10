@@ -88,7 +88,7 @@ export class HomePage {
 
 
 
- listMoves() {
+ listMoves_1() {
     this.movesService.getMoves_old().subscribe(
       data => {
         this.moves = data;
@@ -103,7 +103,7 @@ export class HomePage {
     );
   }
 
-  listMoves_1() {
+  listMoves() {
     var me = this;
 
     NativeStorage.getItem('user')
