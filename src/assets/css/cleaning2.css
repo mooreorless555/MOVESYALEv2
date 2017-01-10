@@ -98,6 +98,15 @@
      border-radius:7px ;
 }
 
+.fade {
+  color: red;
+}
+
+.fade.ng-enter {
+  transition:0.5s linear all;
+  opacity:0;
+}
+
 /* SLIDING BUTTONS */
 .button_sliding_bg {
   margin-left: -5px  !important;

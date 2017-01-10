@@ -2,9 +2,13 @@ import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { NavController, Platform, NavParams } from 'ionic-angular';
 import { NativeStorage } from 'ionic-native';
 import { MovesService } from '../services/MovesService';
+<<<<<<< HEAD
 
 import { StatsPage } from '../stats/stats'
 
+=======
+import { LocationTracker } from '../../providers/location-tracker';
+>>>>>>> f4379028bf4b04cb6c95296dcd3622d6c0dc7ba5
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -25,13 +29,20 @@ export class MapPage {
   moves: Array<any>;
  
 
+<<<<<<< HEAD
   constructor(public platform: Platform, public params: NavParams, public navCtrl: NavController, public movesService: MovesService) {
+=======
+  constructor(public platform: Platform, public params: NavParams, public locationTracker: LocationTracker, public movesService: MovesService) {
+>>>>>>> f4379028bf4b04cb6c95296dcd3622d6c0dc7ba5
         this.platform = platform;
         this.moves = params.get("moves");
         //alert(this.moves);
 
         //this.listMoves();
         this.initializeMap();
+        setInterval(() => {
+          this.map.setOptions({center: new google.maps.LatLng(this.locationTracker.lat, this.locationTracker.lng)});
+        }, 1000);
         //this.initializeMap();    
   }
 
@@ -86,12 +97,13 @@ export class MapPage {
  
     this.platform.ready()
     .then(() => {
-        var minZoomLevel = 12;
+        var minZoomLevel = 17;
  
         this.map = new google.maps.Map(document.getElementById('map'), {
             zoom: minZoomLevel,
             center: new google.maps.LatLng(41.3083, -72.9279),
             mapTypeId: google.maps.MapTypeId.ROADMAP,
+<<<<<<< HEAD
             styles: [
   {
     "elementType": "geometry",
@@ -308,6 +320,104 @@ export class MapPage {
   }
 ]
         });
+=======
+            disableDefaultUI: true,
+            styles: [
+            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+            {elementType: 'labels.icon', stylers: [{visibility: 'off'}]},
+            {
+              featureType: 'administrative.locality',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#fff'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'geometry',
+              stylers: [{color: '#263c3f'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#9932CC'}]
+            },
+              {featureType: 'poi.park',
+              elementType: 'labels.text.stroke',
+              stylers: [{color: '#ffffff'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry',
+              stylers: [{color: '#38414e'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#ffffff'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#FFFFFF'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry',
+              stylers: [{color: '#746855'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#ffffff'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#f3d19c'}]
+            },
+            {
+              featureType: 'transit',
+              elementType: 'geometry',
+              stylers: [{color: '#2f3948'}]
+            },
+            {
+              featureType: 'transit.station',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'geometry',
+              stylers: [{color: '#17263c'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#515c6d'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.stroke',
+              stylers: [{color: '#17263c'}]
+            },
+        {
+          featureType: 'poi.business',
+          stylers: [{visibility: 'off'}]
+        },
+        {
+          featureType: 'transit',
+          elementType: 'labels.icon',
+          stylers: [{visibility: 'off'}]
+        }
+      ]
+  });
+>>>>>>> f4379028bf4b04cb6c95296dcd3622d6c0dc7ba5
     })
     .then(() => {
         for (let i=0; i < this.moves.length; i++) {
@@ -316,6 +426,7 @@ export class MapPage {
           //this.addMarker(this.moves[i].location.lat, this.moves[i].location.long);
         }
     })
+
   } 
 
   addMarker(move){

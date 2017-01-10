@@ -21,7 +21,11 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-
+      StatusBar.backgroundColorByHexString("#886FE8");
+      Splashscreen.show();
+      setTimeout(() => {
+        Splashscreen.hide();
+      }, 3000);
       // Check if the user is already logged in
       let env = this;
   
@@ -38,7 +42,6 @@ export class MyApp {
         Splashscreen.hide();
       });
 
-      StatusBar.backgroundColorByHexString("#9932CC");
     });
   }
 }

@@ -11,6 +11,7 @@ import { MapPage } from '../map/map';
 import { MovesService } from '../services/MovesService';
 import { StatsProvider } from '../../providers/stats-provider';
 import { System, Globals } from '../functions/functions';
+import { LocationTracker } from '../../providers/location-tracker';
 
 declare var ProgressBar: any;
 
@@ -67,8 +68,19 @@ export class HomePage {
     }
     }
 
-  constructor(public navCtrl: NavController, public system: System, public globals:Globals, public stat:StatsProvider, public movesService:MovesService) {
+  constructor(public navCtrl: NavController, public system: System, public locationTracker: LocationTracker, public globals: Globals, public stat:StatsProvider, public movesService:MovesService) {
 
+  }
+
+  /* GPS Tracking */
+  start() {
+      this.system.showNotification("Tracking started.", 1000);
+      this.locationTracker.startTracking();
+  }
+
+  stop() {
+      this.system.showNotification("Tracking stopped.", 1000);
+      this.locationTracker.stopTracking();
   }
 
   goToProfile() {

@@ -48,7 +48,7 @@ var counter = new ProgressBar.SemiCircle(container.nativeElement, {
 
           text: {
             value: '',
-             className: 'progressbar__label',
+            className: 'progressbar__label',
           },
 
           from: {color: '#9932CC'},
@@ -80,7 +80,8 @@ var counter = new ProgressBar.SemiCircle(container.nativeElement, {
 
   }
 
-CreateGeneralCounter(container, type, color, duration, move) {
+CreateGeneralCounter(container, type, color, duration, move, overflow) {
+	var num = 0;
 	if (type == 'line') {
 	  var counter = new ProgressBar.Line(container.nativeElement, {
         strokeWidth: 6,
@@ -95,10 +96,12 @@ CreateGeneralCounter(container, type, color, duration, move) {
 	      margin: 0,
 	      transform: null
 	    },
-
           step: (state, bar) => {
-          	if (move) {
-            	bar.setText(move.stats.fun/move.info.capacity);         		
+          	num = bar.value()*move.info.capacity;
+          	if (overflow >= num) {
+            	bar.setText(overflow);         		
+          	} else {
+          		bar.setText(num.toFixed(0));
           	}
 
             bar.text.style.color = state.color;
@@ -112,7 +115,7 @@ CreateGeneralCounter(container, type, color, duration, move) {
 
 	  counter.animate(1);
 	  return counter;		
-	}
+}
 
 	return -1;
 

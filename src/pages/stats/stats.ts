@@ -32,9 +32,9 @@ export class StatsPage {
 
   ngAfterViewInit() {
     this.progbar = this.stat.CreateStatsCounter(this.container, this.move);
-    this.funstatbar = this.stat.CreateGeneralCounter(this.funbar, 'line', '#27e833', 1400, this.move);
-    this.mehstatbar = this.stat.CreateGeneralCounter(this.mehbar, 'line', '#FBD200', 1600, this.move);
-    this.deadstatbar = this.stat.CreateGeneralCounter(this.deadbar, 'line', '#f9152f', 1800, this.move);
+    this.funstatbar = this.stat.CreateGeneralCounter(this.funbar, 'line', '#27e833', 1400, this.move, this.move.stats.fun);
+    this.mehstatbar = this.stat.CreateGeneralCounter(this.mehbar, 'line', '#FBD200', 1600, this.move, this.move.stats.meh);
+    this.deadstatbar = this.stat.CreateGeneralCounter(this.deadbar, 'line', '#f9152f', 1800, this.move, this.move.stats.dead);
 
     setTimeout(() => {
       this.updateStatsBars();
@@ -72,7 +72,7 @@ incStat(move, stat) {
     default:
       console.log('Mistake.');
  }
-  // this.system.saveMove(move);
+  // this.movesService.updateMove(move);
   this.updateStatsBars();
 }
 
