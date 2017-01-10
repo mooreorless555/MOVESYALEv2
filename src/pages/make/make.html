@@ -19,6 +19,11 @@
   </ion-item>
 
   <ion-item>
+    <ion-label floating>Location</ion-label>
+    <ion-input type="text" [(ngModel)]="move.info.location" name="location" maxlength="50" required></ion-input>
+  </ion-item>
+
+  <ion-item>
     <ion-label floating>Capacity</ion-label>
     <ion-input type="number" min="30" max="300" [(ngModel)]="move.info.capacity" name="capacity"></ion-input>
   </ion-item>

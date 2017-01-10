@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs/Observable";
+import 'rxjs/add/operator/map';
 
 var url = 'http://54.175.164.247:80/';
 

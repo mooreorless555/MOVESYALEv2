@@ -1,9 +1,9 @@
-import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { NavController, Platform, NavParams } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Platform, NavParams } from 'ionic-angular';
 import { NativeStorage } from 'ionic-native';
 import { MovesService } from '../services/MovesService';
 import { LocationTracker } from '../../providers/location-tracker';
-// import {Observable} from 'rxjs/Observable';
+import 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 declare var google;
@@ -19,6 +19,7 @@ export class MapPage {
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
+  geocoder: any;
 
   moves: Array<any>;
  
@@ -30,9 +31,9 @@ export class MapPage {
 
         //this.listMoves();
         this.initializeMap();
-        setInterval(() => {
-          this.map.setOptions({center: new google.maps.LatLng(this.locationTracker.lat, this.locationTracker.lng)});
-        }, 1000);
+        // setInterval(() => {
+        //   this.map.setOptions({center: new google.maps.LatLng(this.locationTracker.lat, this.locationTracker.lng)});
+        // }, 1000);
         //this.initializeMap();    
   }
 
@@ -189,22 +190,36 @@ export class MapPage {
         }
       ]
   });
+  var geocoder = new google.maps.Geocoder;
+  var latLng = {lat: 41.3083, lng: -72.92790000000002};
+  geocoder.geocode({'location': latLng}, function(results, status) {
+          if (status === 'OK') {
+            if (results[0]) {
+              alert(results[0].formatted_address);                
+            } else {
+              alert('No results.');
+            }
+          } else {
+            alert('Geocoder failed due to: ' + status);
+          }
+        });
+
     })
     .then(() => {
         for (let i=0; i < this.moves.length; i++) {
 
-          this.addMarker(this.moves[i].location.lat, this.moves[i].location.long);
+          this.addMarker(this.moves[i].LatLng);
         }
     })
 
   } 
 
-  addMarker(lat, lng){
+  addMarker(position){
  
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: new google.maps.LatLng(lat, lng)
+      position: position
     });
 
     marker.addListener('click', function() {
