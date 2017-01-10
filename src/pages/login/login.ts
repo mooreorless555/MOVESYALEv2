@@ -46,9 +46,9 @@ export class LoginPage {
 
   doLogin() {
     if (this.globals.debugflag) {
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.setRoot(TabsPage);
     } else {
-var me = this;
+    var me = this;
     var permissions = new Array();
 
     permissions = ["public_profile", "email"];
@@ -81,7 +81,7 @@ var me = this;
           token: results[1]
         })
         // this.presentWelcome();
-        me.navCtrl.setRoot(HomePage);
+        me.navCtrl.setRoot(TabsPage);
       })
       .catch(function(error) {
         alert("Error in doLogin(): " + error);

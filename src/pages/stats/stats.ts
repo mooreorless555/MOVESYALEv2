@@ -41,7 +41,7 @@ export class StatsPage {
     }, 2000);
   }
 
-  constructor(public navCtrl: NavController, public params: NavParams, public system: System, public stat: StatsProvider, public zone: NgZone) {
+  constructor(public navCtrl: NavController, public params: NavParams, public movesService: MovesService, public system: System, public stat: StatsProvider, public zone: NgZone) {
      this.move = params.get("firstPassed");
      alert('Passed in: ' + this.move);
 
@@ -72,7 +72,7 @@ incStat(move, stat) {
     default:
       console.log('Mistake.');
  }
-  // this.movesService.updateMove(move);
+  this.movesService.updateMove(move);
   this.updateStatsBars();
 }
 

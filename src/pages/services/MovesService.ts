@@ -91,6 +91,30 @@ export class MovesService {
     });
   }
 
+
+  updateMove(move) {
+
+    let body = JSON.stringify(move);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let urlUpdate = url + 'moves/' + move._id;
+  
+    return new Promise((resolve, reject) => {
+
+      this.http.put(urlUpdate, body, { headers: headers })
+      .subscribe(res => {
+
+        resolve(res);
+
+      }, (err) => {
+
+        alert(err);
+        reject(err);
+
+      });
+    
+    });
+  }
+
   // updateMove(move) {
     
   //   console.log('Updating move');

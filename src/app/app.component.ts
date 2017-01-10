@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar, Splashscreen, NativeStorage } from 'ionic-native';
 
-// import { TabsPage } from '../pages/tabs/tabs';
+import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 
@@ -14,7 +14,7 @@ export class MyApp {
   
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any;
+  rootPage: LoginPage;
 
   constructor(platform: Platform) {
     
@@ -33,12 +33,12 @@ export class MyApp {
       .then((data) => {
         //alert("Got tokens" + data);
         // user was previously logged in
-        env.nav.push(HomePage);
+        env.nav.setRoot(TabsPage);
         Splashscreen.hide();
       }, (err) => {
         //alert('No user found');
         // user not previously logged in
-        env.nav.push(LoginPage)
+        env.nav.setRoot(LoginPage)
         Splashscreen.hide();
       });
 
