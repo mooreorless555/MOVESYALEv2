@@ -7,6 +7,7 @@ import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
 import { System, Globals } from '../functions/functions';
+import { LocationTracker } from '../../providers/location-tracker';
 import { StatsProvider } from '../../providers/stats-provider';
 import { MovesService } from '../services/MovesService';
 
@@ -24,14 +25,15 @@ export class MakePage {
   public move = {
     info: {
       name: "",
+      location: "",
       capacity: 30,
       hasAlcohol: false,
       extraInfo: ""
     },
     
-    location: {
-      long: 0,
-      lat: 0
+    LatLng: {
+      lat: 0,
+      lng: 0
     },
 
     stats: {
@@ -45,6 +47,7 @@ export class MakePage {
  /* Form submission checking */
   logForm() {
     this.move.info.name = this.move.info.name.trim();
+    this.move.info.location = this.move.info.location.trim();
     console.log(this.move.info.name);
     if (this.move.info.name == "") {
       this.system.showNotification("You need to give your Move a name.", 3000);
@@ -85,7 +88,7 @@ export class MakePage {
 
 
 
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController, public system: System, private globals: Globals, private movesService: MovesService) {
+  constructor(public navCtrl: NavController, public locationTracker: LocationTracker, public toastCtrl: ToastController, public alertCtrl: AlertController, public system: System, private globals: Globals, private movesService: MovesService) {
     let messages = [
       "Please enter Move here.", 
       "What's the move?", 
@@ -114,6 +117,8 @@ export class MakePage {
           this.move.stats.fun = Math.floor(Math.random() * this.move.info.capacity);
           this.move.stats.meh = Math.floor(Math.random() * this.move.info.capacity);
           this.move.stats.dead = Math.floor(Math.random() * this.move.info.capacity);
+          this.move.LatLng.lat = this.locationTracker.lat;
+          this.move.LatLng.lng = this.locationTracker.lng;
 
 
           this.saveMove(this.move);

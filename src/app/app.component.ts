@@ -2,13 +2,16 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar, Splashscreen, NativeStorage } from 'ionic-native';
 
+import { MovesService } from '../pages/services/MovesService'
+
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 
 
 @Component({
-  template: `<ion-nav [root]="rootPage"></ion-nav>`
+  template: `<ion-nav [root]="rootPage"></ion-nav>`,
+  providers: [MovesService]
 })
 export class MyApp {
   

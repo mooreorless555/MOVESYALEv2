@@ -18,7 +18,7 @@ declare var ProgressBar: any;
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [MovesService, System, Globals, StatsProvider]
+  providers: [System, Globals, StatsProvider]
 })
 
 export class HomePage {
@@ -45,9 +45,9 @@ export class HomePage {
   ngAfterViewChecked() {
     if (this.container.toArray().length > 0) {
       if (this.system.checked == 0) {
+          let moves = this.moves;
         setTimeout(() => {
           let containers = this.container.toArray();
-          let moves = this.moves;
           for (var i = 0; i < containers.length; i ++) {
             this.stat.CreatePeopleCounter(containers[i]);
           }
@@ -58,7 +58,6 @@ export class HomePage {
         setTimeout(() => {
             for (var i = 0; i < this.moves.length; i++) {
               let counters = this.stat.counters;
-              let moves = this.moves;
               let perc = moves[i].stats.people/moves[i].info.capacity;
               this.stat.UpdateCounter(counters[i], perc);
               }      
@@ -125,6 +124,7 @@ export class HomePage {
           })
           .then(function(results) {
             //alert(results[1]);
+            me.movesService.setMoves(results[1]);
             me.moves = results[1];
             //alert("Got moves: " + me.moves);
           })

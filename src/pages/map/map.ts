@@ -1,19 +1,19 @@
-import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { NavController, Platform, NavParams } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Platform, NavParams, NavController } from 'ionic-angular';
 import { NativeStorage } from 'ionic-native';
 import { MovesService } from '../services/MovesService';
 import { StatsPage } from '../stats/stats'
 
 import { LocationTracker } from '../../providers/location-tracker';
-import { Observable } from 'rxjs/Observable';
+import 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 declare var google;
 
 @Component({
   selector: 'page-map',
-  templateUrl: 'map.html',
-  providers: [MovesService]
+  templateUrl: 'map.html'
+  //providers: [MovesService]
 })
 export class MapPage {
 
@@ -21,13 +21,15 @@ export class MapPage {
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
+  geocoder: any;
 
   moves: Array<any>;
  
 
   constructor(public platform: Platform, public navCtrl: NavController, public params: NavParams, public locationTracker: LocationTracker, public movesService: MovesService) {
         this.platform = platform;
-        this.moves = params.get("moves");
+        this.moves = this.movesService.retrieveMoves();
+        //alert("Moves: " + this.moves);
         //alert(this.moves);
 
         //this.listMoves();
@@ -37,6 +39,9 @@ export class MapPage {
           this.map.setOptions({center: new google.maps.LatLng(this.locationTracker.lat, this.locationTracker.lng)});
         }, 1000);
         */
+        // setInterval(() => {
+        //   this.map.setOptions({center: new google.maps.LatLng(this.locationTracker.lat, this.locationTracker.lng)});
+        // }, 1000);
         //this.initializeMap();    
   }
 
@@ -411,18 +416,33 @@ export class MapPage {
         }
       ]
       */
-  });
+    });
 
+    var geocoder = new google.maps.Geocoder;
+    var latLng = {lat: 41.3083, lng: -72.92790000000002};
+    geocoder.geocode({'location': latLng}, function(results, status) {
+          if (status === 'OK') {
+            if (results[0]) {
+              alert(results[0].formatted_address);                
+            } else {
+              alert('No results.');
+            }
+          } else {
+            alert('Geocoder failed due to: ' + status);
+          }
+        });
     })
     .then(() => {
+        //alert("Here: " + this.moves);
         for (let i=0; i < this.moves.length; i++) {
-
         	this.addMarker(this.moves[i]);
           //this.addMarker(this.moves[i].location.lat, this.moves[i].location.long);
+          //this.addMarker(this.moves[i].LatLng);
         }
     })
 
   } 
+
 
   addMarker(move){
  
@@ -439,7 +459,7 @@ export class MapPage {
       //this.checkStats(move);
       let lmove = move;
 
-      alert("In listener, move: " + move.info.name);
+      //alert("In listener, move: " + move.info.name);
       this.navCtrl.push(StatsPage);
     });
  

@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs/Observable";
+import 'rxjs/add/operator/map';
 
 var url = 'http://54.175.164.247:80/';
 
 @Injectable()
 export class MovesService {
+
+  moves: Array<any>;
 
   static get parameters() {
     return [[Http]];
@@ -41,6 +44,16 @@ export class MovesService {
     
     });
 
+  }
+
+  setMoves(moves) {
+    this.moves = moves;
+    //alert("Moves: " + moves + "This.moves: " + this.moves);
+  }
+
+  retrieveMoves() {
+    //alert(this.moves);
+    return this.moves;
   }
 
   makeMove(move) {
