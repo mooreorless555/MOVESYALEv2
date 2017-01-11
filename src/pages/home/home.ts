@@ -35,9 +35,9 @@ export class HomePage {
     this.stat.ResetCounters();
 
     if (this.globals.debugflag) {
-      this.listMoves();
-    } else {
       this.listMoves_1();
+    } else {
+      this.listMoves();
     }
   }
 
