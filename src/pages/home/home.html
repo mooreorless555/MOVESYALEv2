@@ -1,19 +1,17 @@
 
-<!--
+
 <ion-header>
   <ion-navbar color='navbar'>
     <ion-buttons right>
     <button ion-button round (click)="goToMake()">
-      <ion-icon class="largetext" name="add"></ion-icon>
+      <ion-icon class="mediumtext" name="cog"></ion-icon>
     </button>
   </ion-buttons>
     <ion-title item-center>Hub 
-      <ion-icon name="contact" (click)="goToProfile()"></ion-icon>
-      <ion-icon name="globe" (click)="goToMap()"></ion-icon>
     </ion-title>
   </ion-navbar>
 </ion-header>
--->
+
 
 <ion-content padding>
   <ion-refresher (ionRefresh)="refreshMoves($event)">
