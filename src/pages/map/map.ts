@@ -45,6 +45,7 @@ export class MapPage {
         //this.initializeMap();    
   }
 
+  /*
   listMoves() {
     var me = this;
 
@@ -62,7 +63,7 @@ export class MapPage {
       alert("Couldn't get tokens " + err);
     });
   }
-
+  */
   /*
   constructor(public navCtrl: NavController) {
     

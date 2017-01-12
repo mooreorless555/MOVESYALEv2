@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import { LoginProvider } from '../../providers/login-provider';
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 
@@ -14,7 +15,7 @@ export class MovesService {
     return [[Http]];
   }
 
-  constructor(public http: Http) {
+  constructor(public http: Http, public loginProvider: LoginProvider) {
     console.log('Hello MovesService Provider');
   }
 
@@ -24,13 +25,14 @@ export class MovesService {
     return response;
   }
 
-  getMoves(token) {
+  getMoves() {
 
-    var headers = new Headers({ 'Authorization': token.token });
+    var token = this.loginProvider.getToken();
+    var headers = new Headers({ 'Authorization': token });
 
     return new Promise((resolve, reject) => {
       
-      this.http.get(url, {headers: headers})
+      this.http.get(url + 'api/', {headers: headers})
       .map(res => res.json())
       .subscribe(data => {
         //alert(data);
@@ -67,7 +69,7 @@ export class MovesService {
 
     return new Promise((resolve, reject) => {
 
-      this.http.post(url, body, options).subscribe(res => {
+      this.http.post(url + 'api/', body, options).subscribe(res => {
 
         let data = res.json();
         resolve(data);

@@ -21,7 +21,7 @@ import { HomePage } from '../home/home';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [LoginProvider, Globals]
+  providers: [Globals]
 })
 export class LoginPage {
   FB_APP_ID: number = 1726230761032513;
@@ -76,10 +76,12 @@ export class LoginPage {
 
       })
       .then(function(results) {
+        /*
         NativeStorage.setItem('user', {
           social_token: results[0][0],
           token: results[1]
         })
+        */
         // this.presentWelcome();
         me.navCtrl.setRoot(TabsPage);
       })

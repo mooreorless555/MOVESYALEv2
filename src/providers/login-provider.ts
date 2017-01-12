@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
+import{ NativeStorage } from 'ionic-native';
+
 import 'rxjs/add/operator/map';
 
 var url = 'http://54.175.164.247:80/';
@@ -14,6 +16,10 @@ var url = 'http://54.175.164.247:80/';
 @Injectable()
 export class LoginProvider {
 
+  user;
+  token: string;
+  social_token: string;
+
   static get parameters() {
     return [[Http]];
   }
@@ -22,9 +28,27 @@ export class LoginProvider {
     console.log('Hello LoginProvider Provider');
   }
 
-  
+  setUser(res) {
+    alert("Setting user: " + res);
+    this.user = res.user;
+  }
+
+  getUser() {
+    alert("In get user: " + this.user);
+    return this.user;
+  }
+
+  getToken() {
+    return this.token;
+  }
+
+  setToken(token) {
+    this.token = token;
+  }
+
   doApiLogin(data) {
 
+    var me = this;
     // alert(data)
 
     var body = JSON.stringify({
@@ -38,10 +62,27 @@ export class LoginProvider {
 
     return new Promise((resolve, reject) => {
 
-      this.http.post(url + 'api/FBauthenticate', body, options).subscribe((res) => {
+      this.http.post(url + 'api/FBauthenticate', body, options)
+      .map((res) => res.json())
+      .subscribe((res) => {
 
-        //alert("Resopnse: " + res);
-        var data = res.json();
+        alert("Response: " + res);
+
+
+
+        if(res.success) {
+
+          alert("Got the data: " + res.user + res.token)
+          me.user = res.user,
+          me.token = res.token
+
+          NativeStorage.setItem('data', {
+            token: res.token,
+            user: res.user
+          });
+
+        }
+
         resolve(data);
 
       }, (err) => {
@@ -52,15 +93,20 @@ export class LoginProvider {
     });
   }
 
-  getProfile(token) {
+  getProfile() {
 
-    var headers = new Headers({ 'Authorization': token.token });
+    var me = this;
+
+    var headers = new Headers({ 'Authorization': me.token });
+    //alert("Profile: " + me.token);
 
     return new Promise((resolve, reject) => {
 
-      this.http.get(url + 'api/profile', { headers: headers }).subscribe((res) => {
+      me.http.get(url + 'api/profile', { headers: headers }).subscribe((res) => {
         //alert(res);
         let data = res.json();
+        alert("Profile data: " + data);
+        me.user = data;
         //alert(data);
         resolve(data);
 

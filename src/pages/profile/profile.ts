@@ -14,20 +14,21 @@ import { LoginProvider } from '../../providers/login-provider';
 
 @Component({
   selector: 'page-profile',
-  templateUrl: 'profile.html',
-  providers: [LoginProvider]
+  templateUrl: 'profile.html'
+  //providers: [LoginProvider]
 })
 export class ProfilePage {
 
 	public user;
 
+  /*
 	ngAfterViewInit() {
-		var me = this;
+    var me = this;
 
 		NativeStorage.getItem('user')
       		.then(function(user) {
             //alert("Got tokens: " + user);
-        		return Promise.all([user, me.loginProvider.getProfile(user.token)]);
+        		return Promise.all([user, me.loginProvider.getProfile()]);
       		})
       		.then(function(results) {
             alert(results);
@@ -38,13 +39,19 @@ export class ProfilePage {
       		.catch(function(err) {
         		alert("Couldn't get user info, error: " + err);
       		});
-
 	}
+  */
 
-  	constructor(public navCtrl: NavController, public loginProvider: LoginProvider) {}
+  	constructor(public navCtrl: NavController, public loginProvider: LoginProvider) {
+      this.loginProvider.getProfile()
+      .then(() => {
+        this.user = this.loginProvider.getUser();
+      })
+
+    }
 
   	ionViewDidLoad() {
-    	console.log('Hello ProfilePage Page');
+    	alert('Hello ProfilePage Page');
   	}
 
 }

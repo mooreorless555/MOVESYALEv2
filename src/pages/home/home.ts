@@ -27,7 +27,7 @@ export class HomePage {
  /* Gathers all references to elements labeled 
  'container' for the progress bars (people counters) */
  @ViewChildren('container') container: any;
-  moves: Array<any>;
+  moves;
 
   /* Lists all the moves after the page has fully loaded. 
   This is to allow @ViewChildren to work properly. */
@@ -100,14 +100,14 @@ export class HomePage {
 
 
  listMoves_1() {
-    this.movesService.getMoves_old().subscribe(
-      data => {
+    this.movesService.getMoves_old()
+    .subscribe((data) => {
         this.moves = data;
         this.moves.sort(this.system.sortDescending);
         this.system.moves = this.moves;
         console.log(this.moves);
       },
-      err => {
+      (err) => {
         console.log(err);
       },
       () => console.log('Got Moves')
@@ -117,20 +117,13 @@ export class HomePage {
   listMoves() {
     var me = this;
 
-    NativeStorage.getItem('user')
-          .then(function(user) {
-            //alert("Got token: " + user.token);
-            return Promise.all([user, me.movesService.getMoves(user.token)]);
-          })
-          .then(function(results) {
-            //alert(results[1]);
-            me.movesService.setMoves(results[1]);
-            me.moves = results[1];
-            //alert("Got moves: " + me.moves);
-          })
-          .catch(function(err) {
-            alert("Couldn't get tokens " + err);
-          });
+    me.movesService.getMoves()
+    .then((data) => {
+      me.movesService.setMoves(data);
+      me.moves = data;
+    }, (err) => {
+      alert("Couldn't get moves " + err);
+    })
   }
 
 

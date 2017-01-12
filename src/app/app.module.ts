@@ -10,6 +10,8 @@ import { ProfilePage } from '../pages/profile/profile';
 import { MapPage } from '../pages/map/map';
 
 import { LocationTracker } from '../providers/location-tracker';
+import { LoginProvider } from '../providers/login-provider';
+import { MovesService } from '../pages/services/MovesService';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,6 @@ import { LocationTracker } from '../providers/location-tracker';
     TabsPage,
     MapPage
   ],
-  providers: [LocationTracker]
+  providers: [LocationTracker, LoginProvider, MovesService]
 })
 export class AppModule {}
