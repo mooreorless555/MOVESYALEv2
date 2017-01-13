@@ -28,14 +28,18 @@ export class LoginProvider {
     console.log('Hello LoginProvider Provider');
   }
 
-  setUser(res) {
-    alert("Setting user: " + res);
-    this.user = res.user;
+  setUser(user) {
+    alert("Setting user: " + user);
+    this.user = user;
   }
 
   getUser() {
     alert("In get user: " + this.user);
     return this.user;
+  }
+
+  updateUser() {
+    this.getProfile();
   }
 
   getToken() {

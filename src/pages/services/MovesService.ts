@@ -65,11 +65,10 @@ export class MovesService {
     let body = JSON.stringify(move);
     console.log(body);
     let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
 
     return new Promise((resolve, reject) => {
 
-      this.http.post(url + 'api/', body, options).subscribe(res => {
+      this.http.post(url + 'api/', body, {headers: headers}).subscribe(res => {
 
         let data = res.json();
         resolve(data);

@@ -3,7 +3,7 @@ import { Component } 	from '@angular/core';
 import { HomePage } 	from '../home/home';
 import { MapPage } 		from '../map/map';
 import { MakePage } 	from '../make/make';
-import { ProfilePage } 	from '../profile/profile'
+import { ProfilePage } 	from '../profile/profile';
 
 @Component({
   templateUrl: 'tabs.html'

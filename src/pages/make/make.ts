@@ -134,7 +134,7 @@ export class MakePage {
         }}]
         });
           confirm.present();
-        }
+    }
 
     alcWarning() {
      let warning = this.toastCtrl.create({

@@ -43,15 +43,9 @@ export class ProfilePage {
   */
 
   	constructor(public navCtrl: NavController, public loginProvider: LoginProvider) {
-      this.loginProvider.getProfile()
-      .then(() => {
-        this.user = this.loginProvider.getUser();
-      })
+      this.user = this.loginProvider.getUser();
 
+      alert(this.user.moves[0].info.name);
     }
-
-  	ionViewDidLoad() {
-    	alert('Hello ProfilePage Page');
-  	}
 
 }
