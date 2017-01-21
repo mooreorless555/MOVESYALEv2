@@ -35,4 +35,5 @@ ionic plugin add cordova-plugin-statusbar
 ```
 ionic plugin add cordova-plugin-splashscreen
 ```
-```
+
+If you have any questions just message me or Sam!
