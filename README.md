@@ -16,7 +16,7 @@ ionic serve --lab
 If you're getting errors, you may be missing some native plugins.
 
 ---
-#### Native Plugins
+## Native Plugins
 You need to install these plugins for the app to be fully functional.
 
 ```
