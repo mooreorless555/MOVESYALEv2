@@ -14,6 +14,7 @@ then you should be all set on the basics. Finally, cd back to this repo and run
 ionic serve --lab
 ```
 If you're getting errors, you may be missing some native plugins.
+
 ---
 #### Native Plugins
 You need to install these plugins for the app to be fully functional.
